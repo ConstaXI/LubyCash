@@ -23,7 +23,7 @@ interface CreateUser {
 
 class CreateUserService {
   public async execute({ user_body, role, address, phones }: CreateUser) {
-    // todo: Multiple creations and instantiations
+    // todo: Multiple creations and instantiations, don't look wrong?
     const user = await User.create(user_body)
     await user.related('role').create(role)
     await user.load('role')

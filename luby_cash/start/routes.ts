@@ -27,3 +27,6 @@ Route.group(() => {
   Route.delete('/users', 'UsersController.delete')
   Route.put('/users', 'UsersController.update')
 }).middleware('auth')
+
+Route.post('/login', 'SessionsController.login')
+Route.delete('/logout', 'SessionsController.logout')

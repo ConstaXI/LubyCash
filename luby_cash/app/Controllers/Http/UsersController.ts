@@ -33,7 +33,7 @@ export default class UsersController {
   public async update({ auth, request, response }: HttpContextContract) {
     const data = await request.validate(UpdateUserValidator)
 
-    const user = UpdateUserService.execute(data, auth.user)
+    const user = await UpdateUserService.execute(data, auth.user)
 
     return response.status(200).send(user)
   }

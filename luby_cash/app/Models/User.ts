@@ -14,6 +14,7 @@ import Address from 'App/Models/Address'
 import Phone from 'App/Models/Phone'
 import Role from 'App/Models/Role'
 import { v4 as uuidv4 } from 'uuid'
+import Solicitation from 'App/Models/Solicitation'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -45,6 +46,9 @@ export default class User extends BaseModel {
 
   @hasOne(() => Role, { foreignKey: 'user_id' })
   public role: HasOne<typeof Role>
+
+  @hasOne(() => Solicitation)
+  public solicitation: HasOne<typeof Solicitation>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
