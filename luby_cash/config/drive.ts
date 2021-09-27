@@ -62,7 +62,7 @@ const driveConfig: DriveConfig = {
       |
       | When this is set to true, AdonisJS will configure a files server to serve
       | files from the disk root. This is done to mimic the behavior of cloud
-      | storage services that has inbuilt capabilities to serve files.
+      | storage Services that has inbuilt capabilities to serve files.
       |
       */
       serveFiles: true,
