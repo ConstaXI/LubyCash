@@ -47,7 +47,7 @@ export default class User extends BaseModel {
   @hasOne(() => Role, { foreignKey: 'user_id' })
   public role: HasOne<typeof Role>
 
-  @hasOne(() => Solicitation)
+  @hasOne(() => Solicitation, { foreignKey: 'user_id' })
   public solicitation: HasOne<typeof Solicitation>
 
   @column.dateTime({ autoCreate: true })

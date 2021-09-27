@@ -25,8 +25,7 @@ export default class CreateSolicitationValidator {
    */
   public schema = schema.create({
     average_income: schema.number(),
-    status: schema.enum(['waiting', 'approved', 'disapproved']),
-    account_type: schema.enum(['checking account', 'savings account']),
+    account_type: schema.enum(['savings account', 'checking_account']),
   })
 
   /**
