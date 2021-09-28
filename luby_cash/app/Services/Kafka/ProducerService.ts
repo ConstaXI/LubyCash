@@ -1,7 +1,7 @@
-import { Kafka, Message, Producer } from 'kafkajs'
+import { Kafka, Message } from 'kafkajs'
 
 class ProducerService {
-  private producer: Producer
+  private producer
 
   constructor() {
     const kafka = new Kafka({

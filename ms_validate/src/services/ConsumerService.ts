@@ -1,4 +1,4 @@
-import {Kafka, Consumer} from 'kafkajs'
+import {Kafka} from 'kafkajs'
 import SendMail from './SendMail'
 
 interface IConsumer {
@@ -11,7 +11,7 @@ interface IConsume {
 }
 
 export default class ConsumerService {
-    private consumer: Consumer
+    private consumer
 
     constructor({groupId}: IConsumer) {
         const kafka = new Kafka({
