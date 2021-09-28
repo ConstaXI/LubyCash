@@ -5,12 +5,15 @@ import CreateUserService from 'App/Services/Users/CreateUserService'
 import PaginateUserService from 'App/Services/Users/PaginateUserService'
 import UpdateUserService from 'App/Services/Users/UpdateUserService'
 import DeleteUserService from 'App/Services/Users/DeleteUserService'
+import ProducerService from 'App/Services/Kafka/ProducerService'
 
 export default class UsersController {
   public async create({ request, response }: HttpContextContract) {
     const data = await request.validate(CreateUserValidator)
 
     const user = await CreateUserService.execute(data)
+
+    await ProducerService.execute('handle-new-user', [user])
 
     return response.status(201).send(user)
   }
