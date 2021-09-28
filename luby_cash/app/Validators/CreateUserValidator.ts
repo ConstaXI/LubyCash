@@ -44,6 +44,10 @@ export default class CreateUserValidator {
     role: schema.object().members({
       user_type: schema.enum(['administrator', 'client']),
     }),
+    solicitation: schema.object().members({
+      average_income: schema.number(),
+      account_type: schema.enum(['savings account', 'checking_account']),
+    }),
   })
 
   /**

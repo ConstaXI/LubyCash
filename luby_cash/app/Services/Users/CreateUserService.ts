@@ -19,10 +19,14 @@ interface CreateUser {
   phones: {
     phone: string
   }[]
+  solicitation: {
+    average_income: number
+    account_type: string
+  }
 }
 
 class CreateUserService {
-  public async execute({ user_body, role, address, phones }: CreateUser) {
+  public async execute({ user_body, role, address, phones, solicitation }: CreateUser) {
     // todo: Multiple creations and instantiations, it seems to be wrong
 
     const user = await User.create(user_body)
@@ -30,10 +34,12 @@ class CreateUserService {
     await user.related('role').create(role)
     await user.related('address').create(address)
     await user.related('phones').createMany(phones)
+    await user.related('solicitation').create(solicitation)
 
     await user.load('role')
     await user.load('address')
     await user.load('phones')
+    await user.load('solicitation')
 
     return user
   }

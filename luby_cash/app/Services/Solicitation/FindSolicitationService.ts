@@ -2,7 +2,11 @@ import Solicitation from 'App/Models/Solicitation'
 
 class FindSolicitationService {
   public async execute(id: string) {
-    return Solicitation.findOrFail(id)
+    const solicitation = await Solicitation.findOrFail(id)
+
+    await solicitation.load('user')
+
+    return solicitation
   }
 }
 
