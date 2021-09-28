@@ -1,5 +1,4 @@
 import {Kafka} from 'kafkajs'
-import SendMail from './SendMail'
 
 interface IConsumer {
     groupId: string
@@ -26,7 +25,7 @@ export default class ConsumerService {
         await this.consumer.subscribe({topic, fromBeginning})
         await this.consumer.run({
             eachMessage: async ({message}) => {
-                await SendMail.execute(String(message.value))
+                console.log(message)
             },
         })
     }

@@ -10,11 +10,12 @@ import {
   HasMany,
   beforeCreate,
 } from '@ioc:Adonis/Lucid/Orm'
+import { v4 as uuidv4 } from 'uuid'
 import Address from 'App/Models/Address'
 import Phone from 'App/Models/Phone'
 import Role from 'App/Models/Role'
-import { v4 as uuidv4 } from 'uuid'
 import Solicitation from 'App/Models/Solicitation'
+import Account from 'App/Models/Account'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -38,6 +39,12 @@ export default class User extends BaseModel {
   @column()
   public rememberMeToken?: string
 
+  @hasOne(() => Solicitation, { foreignKey: 'user_id' })
+  public solicitation: HasOne<typeof Solicitation>
+
+  @hasOne(() => Account, { foreignKey: 'user_id' })
+  public account: HasOne<typeof Account>
+
   @hasOne(() => Address, { foreignKey: 'user_id' })
   public address: HasOne<typeof Address>
 
@@ -46,9 +53,6 @@ export default class User extends BaseModel {
 
   @hasOne(() => Role, { foreignKey: 'user_id' })
   public role: HasOne<typeof Role>
-
-  @hasOne(() => Solicitation, { foreignKey: 'user_id' })
-  public solicitation: HasOne<typeof Solicitation>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

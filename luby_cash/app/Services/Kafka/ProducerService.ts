@@ -1,7 +1,7 @@
-import { Kafka, Message } from 'kafkajs'
+import { Kafka, Producer } from 'kafkajs'
 
 class ProducerService {
-  private producer
+  private producer: Producer
 
   constructor() {
     const kafka = new Kafka({
@@ -11,7 +11,7 @@ class ProducerService {
     this.producer = kafka.producer()
   }
 
-  public async execute(topic: string, messages: Message[]) {
+  public async execute(topic: string, messages: any[]) {
     await this.producer.connect()
     await this.producer.send({
       topic,
