@@ -34,5 +34,9 @@ Route.group(() => {
   Route.delete('/solicitations/:id', 'SolicitationsController.delete')
 }).middleware(['auth', 'admin'])
 
+Route.group(() => {
+  Route.post('/transaction', 'TransactionsController.create')
+}).middleware(['auth'])
+
 Route.post('/login', 'SessionsController.login')
 Route.delete('/logout', 'SessionsController.logout')

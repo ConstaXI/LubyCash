@@ -1,5 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import PaginateSolicitationsService from 'App/Services/Solicitation/PaginateSolicitationsService'
+import PaginateSolicitationsService from 'App/Services/Solicitations/PaginateSolicitationsService'
 
 export default class UsersController {
   public async index({ request, response }: HttpContextContract) {

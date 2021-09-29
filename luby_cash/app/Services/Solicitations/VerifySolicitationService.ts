@@ -3,7 +3,9 @@ import { Exception } from '@poppinss/utils'
 
 class VerifySolicitationService {
   public async execute(email: string) {
-    const user = await User.findByOrFail('email', email)
+    const user = await User.findBy('email', email)
+
+    if (!user) return
 
     await user.load('solicitation')
 

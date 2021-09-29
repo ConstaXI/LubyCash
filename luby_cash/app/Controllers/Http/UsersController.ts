@@ -6,7 +6,7 @@ import PaginateUserService from 'App/Services/Users/PaginateUserService'
 import UpdateUserService from 'App/Services/Users/UpdateUserService'
 import DeleteUserService from 'App/Services/Users/DeleteUserService'
 import ProducerService from 'App/Services/Kafka/ProducerService'
-import VerifySolicitationService from 'App/Services/Solicitation/VerifySolicitationService'
+import VerifySolicitationService from 'App/Services/Solicitations/VerifySolicitationService'
 
 export default class UsersController {
   public async create({ request, response }: HttpContextContract) {
