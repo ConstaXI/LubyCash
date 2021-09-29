@@ -46,7 +46,7 @@ export default class CreateUserValidator {
     }),
     solicitation: schema.object().members({
       average_income: schema.number(),
-      account_type: schema.enum(['savings account', 'checking_account']),
+      account_type: schema.enum(['savings account', 'checking account']),
     }),
   })
 

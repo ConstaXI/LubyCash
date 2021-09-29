@@ -34,7 +34,7 @@ class CreateUserService {
     await user.related('role').create(role)
     await user.related('address').create(address)
     await user.related('phones').createMany(phones)
-    await user.related('solicitation').create(solicitation)
+    await user.related('solicitation').create({ ...solicitation, status: 'waiting' })
 
     await user.load('role')
     await user.load('address')

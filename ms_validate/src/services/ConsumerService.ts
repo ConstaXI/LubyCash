@@ -25,7 +25,7 @@ export default class ConsumerService {
         await this.consumer.subscribe({topic, fromBeginning})
         await this.consumer.run({
             eachMessage: async ({message}) => {
-                console.log(message)
+                console.log(JSON.parse(String(message.value)))
             },
         })
     }

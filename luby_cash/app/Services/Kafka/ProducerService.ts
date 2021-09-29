@@ -1,4 +1,4 @@
-import { Kafka, Producer } from 'kafkajs'
+import { Kafka, Message, Producer } from 'kafkajs'
 
 class ProducerService {
   private producer: Producer
@@ -11,7 +11,7 @@ class ProducerService {
     this.producer = kafka.producer()
   }
 
-  public async execute(topic: string, messages: any[]) {
+  public async execute(topic: string, messages: Message[]) {
     await this.producer.connect()
     await this.producer.send({
       topic,

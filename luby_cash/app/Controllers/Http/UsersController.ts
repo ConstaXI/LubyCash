@@ -13,7 +13,7 @@ export default class UsersController {
 
     const user = await CreateUserService.execute(data)
 
-    await ProducerService.execute('handle-new-user', [user])
+    await ProducerService.execute('handle-new-user', [{ value: JSON.stringify(user) }])
 
     return response.status(201).send(user)
   }
