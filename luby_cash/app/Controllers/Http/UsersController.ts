@@ -6,10 +6,13 @@ import PaginateUserService from 'App/Services/Users/PaginateUserService'
 import UpdateUserService from 'App/Services/Users/UpdateUserService'
 import DeleteUserService from 'App/Services/Users/DeleteUserService'
 import ProducerService from 'App/Services/Kafka/ProducerService'
+import VerifySolicitationService from 'App/Services/Solicitation/VerifySolicitationService'
 
 export default class UsersController {
   public async create({ request, response }: HttpContextContract) {
     const data = await request.validate(CreateUserValidator)
+
+    await VerifySolicitationService.execute(data.user_body.email)
 
     const user = await CreateUserService.execute(data)
 
