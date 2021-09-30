@@ -1,9 +1,9 @@
 import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm'
 import { DateTime } from 'luxon'
 
-@Entity()
-export default class Role extends BaseEntity {
-  @PrimaryGeneratedColumn()
+@Entity('solicitations')
+export default class Solicitation extends BaseEntity {
+  @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column()
@@ -15,9 +15,12 @@ export default class Role extends BaseEntity {
   @Column()
   account_type: string
 
-  @CreateDateColumn()
-  createdAt: DateTime
+  @Column()
+  user_id: string
 
   @CreateDateColumn()
-  updatedAt: DateTime
+  created_at: DateTime
+
+  @CreateDateColumn()
+  updated_at: DateTime
 }

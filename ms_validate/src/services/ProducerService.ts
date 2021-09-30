@@ -18,6 +18,7 @@ class ProducerService {
       topic,
       messages,
     })
+    await this.producer.disconnect()
   }
 }
 

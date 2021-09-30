@@ -1,17 +1,20 @@
 import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm'
 import { DateTime } from 'luxon'
 
-@Entity()
+@Entity('roles')
 export default class Role extends BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column()
   user_type: string
 
-  @CreateDateColumn()
-  createdAt: DateTime
+  @Column()
+  user_id: string
 
   @CreateDateColumn()
-  updatedAt: DateTime
+  created_at: DateTime
+
+  @CreateDateColumn()
+  updated_at: DateTime
 }

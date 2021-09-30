@@ -18,7 +18,7 @@ export default class UsersController {
 
     await ProducerService.execute({
       topic: 'handle-new-user',
-      messages: [{ value: JSON.stringify(user) }],
+      messages: [{ value: JSON.stringify(user.solicitation.$attributes) }],
     })
 
     return response.status(201).send(user)

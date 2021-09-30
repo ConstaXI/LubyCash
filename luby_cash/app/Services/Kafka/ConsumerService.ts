@@ -2,16 +2,16 @@ import { Kafka, Consumer } from 'kafkajs'
 import HandleApprovedService from 'App/Services/Kafka/HandleApprovedService'
 import ConsumerServiceInterface from 'Contracts/ConsumerServiceInterface'
 
-export default class ConsumerService implements ConsumerServiceInterface {
+class ConsumerService implements ConsumerServiceInterface {
   private consumer: Consumer
 
-  constructor(groupId: string) {
+  constructor() {
     const kafka = new Kafka({
       clientId: 'luby_cash_consumer',
       brokers: ['localhost:9092'],
     })
 
-    this.consumer = kafka.consumer({ groupId })
+    this.consumer = kafka.consumer({ groupId: 'app-validation-group' })
   }
 
   public async execute(topic: string, fromBeginning: boolean) {
@@ -19,8 +19,11 @@ export default class ConsumerService implements ConsumerServiceInterface {
     await this.consumer.subscribe({ topic, fromBeginning })
     await this.consumer.run({
       eachMessage: async ({ message }) => {
+        console.dir(JSON.parse(String(message.value)))
         await HandleApprovedService.execute(JSON.parse(String(message.value)))
       },
     })
   }
 }
+
+export default new ConsumerService()

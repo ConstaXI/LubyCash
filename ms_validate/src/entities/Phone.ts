@@ -9,9 +9,9 @@ import {
 import { DateTime } from 'luxon'
 import User from './User'
 
-@Entity()
+@Entity('phones')
 export default class Phone extends BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column()
@@ -21,11 +21,11 @@ export default class Phone extends BaseEntity {
   user_id: string
 
   @CreateDateColumn()
-  createdAt: DateTime
+  created_at: DateTime
 
   @CreateDateColumn()
-  updatedAt: DateTime
+  updated_at: DateTime
 
-  @ManyToOne(() => User, (user) => user.phones)
+  @ManyToOne(() => User)
   user: User
 }

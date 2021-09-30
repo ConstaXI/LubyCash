@@ -1,17 +1,26 @@
 import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm'
 import { DateTime } from 'luxon'
+import { v4 } from 'uuid'
 
-@Entity()
+@Entity('accounts')
 export default class Account extends BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column()
   current_balance: number
 
-  @CreateDateColumn()
-  createdAt: DateTime
+  @Column()
+  user_id: string
 
   @CreateDateColumn()
-  updatedAt: DateTime
+  created_at: DateTime
+
+  @CreateDateColumn()
+  updated_at: DateTime
+
+  constructor() {
+    super()
+    this.id = v4()
+  }
 }

@@ -12,11 +12,11 @@ import Role from './Role'
 import Phone from './Phone'
 import Address from './Address'
 import Account from './Account'
-import Solicitation from '../../../luby_cash/app/Models/Solicitation'
+import Solicitation from "./Solicitation";
 
-@Entity()
+@Entity('users')
 export default class User extends BaseEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column()
@@ -35,10 +35,10 @@ export default class User extends BaseEntity {
   cpf: string
 
   @CreateDateColumn()
-  createdAt: DateTime
+  created_at: DateTime
 
   @CreateDateColumn()
-  updatedAt: DateTime
+  updated_at: DateTime
 
   @OneToOne(() => Role)
   role: Role

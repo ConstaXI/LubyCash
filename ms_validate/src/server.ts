@@ -1,5 +1,8 @@
 import app from './app'
+import connection from "./database/connection";
 
-app.listen(3333, () => {
-  console.log('%c ms_emails server started', 'background: #222; color: #bada55')
+connection().then(() => console.log('Connection with database established'))
+
+app.listen(3000, () => {
+  console.log('ms_emails server started')
 })

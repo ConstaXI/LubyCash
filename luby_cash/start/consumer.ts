@@ -10,6 +10,4 @@
 
 import ConsumerService from 'App/Services/Kafka/ConsumerService'
 
-const consumer = new ConsumerService('mail-group')
-
-consumer.execute('handle-response', true).then(() => console.log('Consumer ready.'))
+ConsumerService.execute('handle-response', true).catch((error) => console.log(error))
