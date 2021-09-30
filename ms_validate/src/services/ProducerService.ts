@@ -1,24 +1,24 @@
-import {Kafka, Message, Producer} from 'kafkajs'
+import { Kafka, Message, Producer } from 'kafkajs'
 
 class ProducerService {
-    private producer: Producer
+  private producer: Producer
 
-    constructor() {
-        const kafka = new Kafka({
-            clientId: 'ms_producer',
-            brokers: ['localhost:9092'],
-        })
+  constructor() {
+    const kafka = new Kafka({
+      clientId: 'ms_producer',
+      brokers: ['localhost:9092'],
+    })
 
-        this.producer = kafka.producer()
-    }
+    this.producer = kafka.producer()
+  }
 
-    public async execute(topic: string, messages: Message[]) {
-        await this.producer.connect()
-        await this.producer.send({
-            topic,
-            messages,
-        })
-    }
+  public async execute(topic: string, messages: Message[]) {
+    await this.producer.connect()
+    await this.producer.send({
+      topic,
+      messages,
+    })
+  }
 }
 
 export default new ProducerService()

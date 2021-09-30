@@ -1,0 +1,17 @@
+[
+  {
+    "name": "default",
+    "type": "postgres",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "username": "postgres",
+    "password": "1579",
+    "database": "lucid",
+    "migrations": ["./src/database/migrations/*.ts"],
+    "entities": ["./src/entities/*.ts"],
+    "logging": false,
+    "cli": {
+      "migrationsDir": "./src/database/migrations"
+    }
+  }
+]

@@ -5,9 +5,8 @@ const app = express()
 
 app.use(express.json())
 
-const consumer = new ConsumerService('mail-group');
+const consumer = new ConsumerService('mail-group')
 
-consumer.execute('handle-new-user', true)
-    .then(() => console.log('Consumer ready.'))
+consumer.execute('handle-new-user', true).then(() => console.log('Consumer ready.'))
 
 export default app
