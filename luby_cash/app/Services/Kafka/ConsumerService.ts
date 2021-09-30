@@ -1,6 +1,8 @@
 import { Kafka, Consumer } from 'kafkajs'
+import HandleApprovedService from 'App/Services/Kafka/HandleApprovedService'
+import ConsumerServiceInterface from 'Contracts/ConsumerServiceInterface'
 
-export default class ConsumerService {
+export default class ConsumerService implements ConsumerServiceInterface {
   private consumer: Consumer
 
   constructor(groupId: string) {
@@ -17,7 +19,7 @@ export default class ConsumerService {
     await this.consumer.subscribe({ topic, fromBeginning })
     await this.consumer.run({
       eachMessage: async ({ message }) => {
-        console.log(String(message.value))
+        await HandleApprovedService.execute(JSON.parse(String(message.value)))
       },
     })
   }

@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon'
-import Hash from '@ioc:Adonis/Core/Hash'
 import {
   column,
   beforeSave,
@@ -10,6 +9,7 @@ import {
   HasMany,
   beforeCreate,
 } from '@ioc:Adonis/Lucid/Orm'
+import Hash from '@ioc:Adonis/Core/Hash'
 import { v4 as uuidv4 } from 'uuid'
 import Address from 'App/Models/Address'
 import Phone from 'App/Models/Phone'
