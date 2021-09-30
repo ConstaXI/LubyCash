@@ -36,6 +36,7 @@ Route.group(() => {
 
 Route.group(() => {
   Route.post('/transaction', 'TransactionsController.create')
+  Route.get('/transaction', 'TransactionsController.index')
 }).middleware(['auth'])
 
 Route.post('/login', 'SessionsController.login')

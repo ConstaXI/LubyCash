@@ -1,11 +1,12 @@
+import ProducerService from "./ProducerService";
+
 interface User {
-    user: {
-        name: string
-        surname: string
-        cpf: string
-        email: string
-        password: string
-    }
+    id: string
+    name: string
+    surname: string
+    cpf: string
+    email: string
+    password: string
     address: {
         zip_code: string
         city: string
@@ -26,8 +27,11 @@ interface User {
 class ValidateUserService {
     public async execute(user: User) {
         if (user.solicitation.average_income >= 500) {
-
+            await ProducerService.execute('handle-response', [{value: user.id}, {value: 'approved'}])
+            return
         }
+        
+        await ProducerService.execute('handle-response', [{value: user.id}, {value: 'disapproved'}])
     }
 }
 

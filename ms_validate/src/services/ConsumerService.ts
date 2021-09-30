@@ -1,31 +1,25 @@
 import {Kafka} from 'kafkajs'
-
-interface IConsumer {
-    groupId: string
-}
-
-interface IConsume {
-    topic: string
-    fromBeginning: boolean
-}
+import ValidateUserService from "./ValidateUserService";
 
 export default class ConsumerService {
     private consumer
 
-    constructor({groupId}: IConsumer) {
+    constructor(groupId: string) {
         const kafka = new Kafka({
+            clientId: 'ms_consumer',
             brokers: ['localhost:9092'],
         })
 
         this.consumer = kafka.consumer({groupId})
     }
 
-    public async consume({topic, fromBeginning}: IConsume) {
+    public async execute(topic: string, fromBeginning: boolean) {
         await this.consumer.connect()
         await this.consumer.subscribe({topic, fromBeginning})
         await this.consumer.run({
             eachMessage: async ({message}) => {
-                console.log(JSON.parse(String(message.value)))
+                console.dir(JSON.parse(String(message.value)))
+                await ValidateUserService.execute(JSON.parse(String(message.value)))
             },
         })
     }

@@ -16,7 +16,10 @@ export default class UsersController {
 
     const user = await CreateUserService.execute(data)
 
-    await ProducerService.execute('handle-new-user', [{ value: JSON.stringify(user) }])
+    await ProducerService.execute({
+      topic: 'handle-new-user',
+      messages: [{ value: JSON.stringify(user) }],
+    })
 
     return response.status(201).send(user)
   }

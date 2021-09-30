@@ -5,11 +5,9 @@ const app = express()
 
 app.use(express.json())
 
-const consumer = new ConsumerService({ groupId: 'mail-group' });
+const consumer = new ConsumerService('mail-group');
 
-consumer.consume({
-    topic: 'handle-new-user',
-    fromBeginning: true
-}).then(() => console.log('%c Consumer ready.', 'background: #222; color: #bada55'))
+consumer.execute('handle-new-user', true)
+    .then(() => console.log('Consumer ready.'))
 
 export default app
