@@ -3,6 +3,7 @@ import { getRepository } from 'typeorm'
 import User from '../entities/User'
 import Solicitation from '../entities/Solicitation'
 import Account from '../entities/Account'
+import SendMailService from "./SendMailService";
 
 interface ISolicitation {
   id: string
@@ -42,6 +43,8 @@ class ValidateUserService {
         { value: 'disapproved' },
       ])
     }
+
+    await SendMailService.execute(user.email)
   }
 }
 
