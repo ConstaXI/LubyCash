@@ -1,5 +1,5 @@
 import app from './app'
-import connection from "./database/connection";
+import connection from './database/connection'
 
 connection().then(() => console.log('Connection with database established'))
 

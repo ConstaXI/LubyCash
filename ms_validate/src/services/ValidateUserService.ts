@@ -1,16 +1,16 @@
 import ProducerService from './ProducerService'
 import { getRepository } from 'typeorm'
 import User from '../entities/User'
-import Solicitation from "../entities/Solicitation";
-import Account from "../entities/Account";
+import Solicitation from '../entities/Solicitation'
+import Account from '../entities/Account'
 
 interface ISolicitation {
-  id: string,
-  average_income: number,
-  status: string,
-  account_type: string,
-  user_id: string,
-  createdAt: string,
+  id: string
+  average_income: number
+  status: string
+  account_type: string
+  user_id: string
+  createdAt: string
   updatedAt: string
 }
 
@@ -25,7 +25,9 @@ class ValidateUserService {
     const user_solicitation = await solicitationsRepository.findOneOrFail(solicitation_prototype.id)
 
     if (solicitation_prototype.average_income >= 500) {
-      user.account = await accountsRepository.create({ user_id: user.id, current_balance: 200 }).save()
+      user.account = await accountsRepository
+        .create({ user_id: user.id, current_balance: 200 })
+        .save()
 
       user_solicitation.status = 'approved'
       await user_solicitation.save()
@@ -35,7 +37,10 @@ class ValidateUserService {
       user_solicitation.status = 'disapproved'
       await user_solicitation.save()
 
-      await ProducerService.execute('handle-response', [{ value: user.id }, { value: 'disapproved' }])
+      await ProducerService.execute('handle-response', [
+        { value: user.id },
+        { value: 'disapproved' },
+      ])
     }
   }
 }

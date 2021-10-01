@@ -1,12 +1,12 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { Exception } from '@poppinss/utils'
 
 export default class IsAdmin {
-  public async handle({ response, auth }: HttpContextContract, next: () => Promise<void>) {
+  public async handle({ auth }: HttpContextContract, next: () => Promise<void>) {
     auth.user!.load('role')
 
-    // @ts-ignore
-    if (auth.user!.role !== 'administrator') {
-      return response.status(403).send('Você não é administrador.')
+    if (auth.user!.role.user_type !== 'administrator') {
+      throw new Exception('Você não é administrador.', 403)
     }
 
     await next()

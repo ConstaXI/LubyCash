@@ -12,7 +12,7 @@ import Role from './Role'
 import Phone from './Phone'
 import Address from './Address'
 import Account from './Account'
-import Solicitation from "./Solicitation";
+import Solicitation from './Solicitation'
 
 @Entity('users')
 export default class User extends BaseEntity {
