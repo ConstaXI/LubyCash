@@ -1,6 +1,6 @@
-import nodemailer, {Transporter} from 'nodemailer'
+import nodemailer, { Transporter } from 'nodemailer'
 import hbs from 'nodemailer-express-handlebars'
-import {promisify} from 'util'
+import { promisify } from 'util'
 import fs from 'fs'
 import handlebars from 'handlebars'
 
@@ -22,30 +22,36 @@ class sendMail {
   public async execute(email: string) {
     const readFile = promisify(fs.readFile)
 
-    this.mailer.use('compile', hbs({
-      viewEngine: {
-        extname: '.edge',
-      },
-      viewPath: 'src/views/emails',
-      extName: '.edge',
-    }))
+    this.mailer.use(
+      'compile',
+      hbs({
+        viewEngine: {
+          extname: '.edge',
+        },
+        viewPath: 'src/views/emails',
+        extName: '.edge',
+      })
+    )
 
     const html = await readFile('src/views/emails/evaluation_status.edge', 'utf8')
     const template = handlebars.compile(html)
     const htmlToSend = template(template)
 
-    this.mailer.sendMail({
-      from: 'davi@email.com',
-      to: email,
-      subject: 'Status da avaliação',
-      html: htmlToSend,
-    }, (error) => {
-      if (error) {
-        console.log(error)
+    this.mailer.sendMail(
+      {
+        from: 'davi@email.com',
+        to: email,
+        subject: 'Status da avaliação',
+        html: htmlToSend,
+      },
+      (error) => {
+        if (error) {
+          console.log(error)
+        }
+        console.log(`Successfully sent email to ${email}`)
       }
-      console.log(`Successfully sent email to ${email}`)
-    })
+    )
   }
 }
 
-export default new sendMail();
+export default new sendMail()

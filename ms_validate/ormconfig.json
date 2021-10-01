@@ -6,7 +6,7 @@
     "port": 5432,
     "username": "postgres",
     "password": "1579",
-    "database": "lucid",
+    "database": "lucid_ms",
     "migrations": ["./src/database/migrations/*.ts"],
     "entities": ["./src/entities/*.ts"],
     "logging": false,

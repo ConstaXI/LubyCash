@@ -8,14 +8,13 @@ import {
   OneToMany,
 } from 'typeorm'
 import { DateTime } from 'luxon'
-import Role from './Role'
 import Phone from './Phone'
 import Address from './Address'
-import Account from './Account'
 import Solicitation from './Solicitation'
+import { IsEmail, Length } from 'class-validator'
 
-@Entity('users')
-export default class User extends BaseEntity {
+@Entity('ms_clients')
+export default class Client extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -26,12 +25,14 @@ export default class User extends BaseEntity {
   surname: string
 
   @Column({ unique: true })
+  @IsEmail()
   email: string
 
   @Column()
   password: string
 
   @Column({ unique: true })
+  @Length(12, 12)
   cpf: string
 
   @CreateDateColumn()
@@ -40,17 +41,11 @@ export default class User extends BaseEntity {
   @CreateDateColumn()
   updated_at: DateTime
 
-  @OneToOne(() => Role)
-  role: Role
-
   @OneToOne(() => Address)
   address: Address
 
   @OneToMany(() => Phone, (phone) => phone.user)
   phones: Phone[]
-
-  @OneToOne(() => Account)
-  account: Account
 
   @OneToOne(() => Solicitation)
   solicitation: Solicitation

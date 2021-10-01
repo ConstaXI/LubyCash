@@ -1,9 +1,4 @@
 import ProducerService from './ProducerService'
-import { getRepository } from 'typeorm'
-import User from '../entities/User'
-import Solicitation from '../entities/Solicitation'
-import Account from '../entities/Account'
-import SendMailService from "./SendMailService";
 
 interface ISolicitation {
   id: string
@@ -16,42 +11,15 @@ interface ISolicitation {
 }
 
 class ValidateUserService {
-  public async execute(solicitation_prototype: ISolicitation) {
-    const usersRepository = getRepository(User)
-    const solicitationsRepository = getRepository(Solicitation)
-    const accountsRepository = getRepository(Account)
-
-    const user = await usersRepository.findOneOrFail(solicitation_prototype.user_id)
-
-    const user_solicitation = await solicitationsRepository.findOneOrFail(solicitation_prototype.id)
-
-    if (solicitation_prototype.average_income >= 500) {
-      user.account = await accountsRepository
-        .create({ user_id: user.id, current_balance: 200 })
-        .save()
-
-      user_solicitation.status = 'approved'
-      await user_solicitation.save()
-
-      await ProducerService.execute('handle-response', [{
+  public async execute(solicitation: ISolicitation) {
+    await ProducerService.execute('handle-response', [
+      {
         value: JSON.stringify({
-          user_id: user.id,
-          status: user_solicitation.status
-        })
-      }])
-    } else {
-      user_solicitation.status = 'disapproved'
-      await user_solicitation.save()
-
-      await ProducerService.execute('handle-response', [{
-        value: JSON.stringify({
-          user_id: user.id,
-          status: user_solicitation.status
-        })
-      }])
-    }
-
-    await SendMailService.execute(user.email)
+          user_id: solicitation.user_id,
+          status: solicitation.average_income > 500 ? 'approved' : 'disapproved',
+        }),
+      },
+    ])
   }
 }
 

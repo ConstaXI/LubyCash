@@ -23,7 +23,7 @@ declare module '@ioc:Adonis/Addons/Auth' {
   interface ProvidersList {
     /*
     |--------------------------------------------------------------------------
-    | User Provider
+    | Clients Provider
     |--------------------------------------------------------------------------
     |
     | The following provider uses Lucid entities as a driver for fetching user
