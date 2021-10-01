@@ -8,7 +8,7 @@ export default class UsersController {
   public async create({ auth, request, response }: HttpContextContract) {
     const data = await request.validate(CreateTransactionValidator)
 
-    const destinationUser = await FindUserByCPFService.execute(data.destination_account_id)
+    const destinationUser = await FindUserByCPFService.execute(data.cpf)
 
     const transaction = await CreateTransactionService.execute(
       data.value,

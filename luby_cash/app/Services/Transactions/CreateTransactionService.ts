@@ -1,8 +1,11 @@
 import Account from 'App/Models/Account'
 import Transaction from 'App/Models/Transaction'
+import { Exception } from '@poppinss/utils'
 
 class CreateTransactionService {
   public async execute(value: number, source_account: Account, destination_account: Account) {
+    if (source_account.current_balance - value < 0) throw new Exception('Você não tem saldo')
+
     source_account.current_balance -= value
     destination_account.current_balance += value
 

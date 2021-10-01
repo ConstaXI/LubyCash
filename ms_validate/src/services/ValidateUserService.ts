@@ -33,15 +33,22 @@ class ValidateUserService {
       user_solicitation.status = 'approved'
       await user_solicitation.save()
 
-      await ProducerService.execute('handle-response', [{ value: user.id }, { value: 'approved' }])
+      await ProducerService.execute('handle-response', [{
+        value: JSON.stringify({
+          user_id: user.id,
+          status: user_solicitation.status
+        })
+      }])
     } else {
       user_solicitation.status = 'disapproved'
       await user_solicitation.save()
 
-      await ProducerService.execute('handle-response', [
-        { value: user.id },
-        { value: 'disapproved' },
-      ])
+      await ProducerService.execute('handle-response', [{
+        value: JSON.stringify({
+          user_id: user.id,
+          status: user_solicitation.status
+        })
+      }])
     }
 
     await SendMailService.execute(user.email)

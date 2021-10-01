@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { DateTime } from 'luxon'
 import FindByEmailService from '../../Services/Users/FindByEmailService'
+import VerifyApproved from 'App/Services/Sessions/VerifyApproved'
 
 export default class SessionsController {
   public async login({ auth, request, response }: HttpContextContract) {
@@ -8,6 +9,8 @@ export default class SessionsController {
     const password: string = request.input('password')
 
     const user = await FindByEmailService.execute(email)
+
+    await VerifyApproved.execute(user)
 
     const { token } = await auth.attempt(email, password, {
       expires_at: DateTime.now().plus({ hours: 1 }),
