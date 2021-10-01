@@ -1,7 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import CreateTransactionValidator from 'App/Validators/CreateTransactionValidator'
 import CreateTransactionService from 'App/Services/Transactions/CreateTransactionService'
-import PaginateTransactionsService from 'App/Services/Transactions/PaginateTransactionsService'
+import FindMonthTransactionsService from 'App/Services/Transactions/FindMonthTransactionsService'
 import FindUserByCPFService from 'App/Services/Users/FindUserByCPFService'
 
 export default class UsersController {
@@ -10,21 +10,22 @@ export default class UsersController {
 
     const destinationUser = await FindUserByCPFService.execute(data.cpf)
 
-    const transaction = await CreateTransactionService.execute(
+    const transactions = await CreateTransactionService.execute(
       data.value,
       auth.user!.account,
       destinationUser.account
     )
 
-    return response.status(201).send(transaction)
+    return response.status(201).send(transactions)
   }
 
   public async index({ request, response }: HttpContextContract) {
-    const page = request.input('page', 1)
-    const perPage = request.input('per_page', 10)
+    const userId: string = request.param('user_id')
 
-    const transactions = await PaginateTransactionsService.execute(page, perPage)
+    const user = await FindMonthTransactionsService.execute(userId)
 
-    return response.status(200).send(transactions)
+    return response
+      .status(200)
+      .send({ inbound: user.account.inbound, outbound: user.account.outbound })
   }
 }

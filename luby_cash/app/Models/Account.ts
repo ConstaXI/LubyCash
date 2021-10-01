@@ -13,8 +13,11 @@ export default class Account extends BaseModel {
   @column()
   public user_id: string
 
-  @hasMany(() => Transaction)
-  public transactions: HasMany<typeof Transaction>
+  @hasMany(() => Transaction, { foreignKey: 'source_account_id' })
+  public outbound: HasMany<typeof Transaction>
+
+  @hasMany(() => Transaction, { foreignKey: 'destination_account_id' })
+  public inbound: HasMany<typeof Transaction>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
