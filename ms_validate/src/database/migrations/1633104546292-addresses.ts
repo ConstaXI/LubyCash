@@ -10,6 +10,8 @@ export class addresses1633104546292 implements MigrationInterface {
             name: 'id',
             type: 'uuid',
             isPrimary: true,
+            generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'city',
@@ -34,7 +36,7 @@ export class addresses1633104546292 implements MigrationInterface {
             default: 'now()',
           },
           {
-            name: 'client_id',
+            name: 'clientId',
             type: 'uuid',
           },
         ],
@@ -43,7 +45,7 @@ export class addresses1633104546292 implements MigrationInterface {
             name: 'ClientAddress',
             referencedTableName: 'ms_clients',
             referencedColumnNames: ['id'],
-            columnNames: ['client_id'],
+            columnNames: ['clientId'],
             onUpdate: 'SET NULL',
             onDelete: 'CASCADE',
           },

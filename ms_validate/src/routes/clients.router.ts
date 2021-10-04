@@ -3,4 +3,6 @@ import ClientsController from '../controllers/ClientsController'
 
 const clientsRouter = Router()
 
-clientsRouter.post('/clients', ClientsController.create)
+clientsRouter.post('/', ClientsController.create)
+
+export default clientsRouter

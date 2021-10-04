@@ -10,13 +10,20 @@ export class solicitations1633107557275 implements MigrationInterface {
             name: 'id',
             type: 'uuid',
             isPrimary: true,
+            generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'average_income',
             type: 'float',
           },
           {
-            name: 'client_id',
+            name: 'status',
+            type: 'varchar',
+            default: "'waiting'",
+          },
+          {
+            name: 'clientId',
             type: 'uuid',
           },
           {
@@ -30,7 +37,7 @@ export class solicitations1633107557275 implements MigrationInterface {
             name: 'ClientSolicitations',
             referencedTableName: 'ms_clients',
             referencedColumnNames: ['id'],
-            columnNames: ['client_id'],
+            columnNames: ['clientId'],
             onUpdate: 'SET NULL',
             onDelete: 'CASCADE',
           },

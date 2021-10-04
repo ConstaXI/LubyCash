@@ -1,21 +1,12 @@
 import { Request, Response } from 'express'
-import { getRepository, Repository } from 'typeorm'
-import Client from '../entities/Client'
-import { validate } from "class-validator";
+import CreateClientService from '../services/clients/CreateClientService'
+import { container } from 'tsyringe'
 
 class ClientsController {
-  private ormRepository: Repository<Client>
-
-  constructor() {
-    this.ormRepository = getRepository(Client)
-  }
-
   public async create(request: Request, response: Response) {
-    const client = new Client()
+    const createClientService = container.resolve(CreateClientService)
 
-    Object.assign(client, request.body)
-
-    await validate(client)
+    const client = await createClientService.execute(request.body)
 
     return response.status(201).json(client)
   }

@@ -13,14 +13,8 @@ export default class Solicitation extends BaseEntity {
   average_income: number
 
   @Column()
-  account_type: string
-
-  @Column()
-  user_id: string
+  clientId: string
 
   @CreateDateColumn()
   created_at: DateTime
-
-  @CreateDateColumn()
-  updated_at: DateTime
 }

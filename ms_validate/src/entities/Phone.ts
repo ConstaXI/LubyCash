@@ -7,7 +7,7 @@ import {
   ManyToOne,
 } from 'typeorm'
 import { DateTime } from 'luxon'
-import Clients from './Client'
+import Client from './Client'
 
 @Entity('phones')
 export default class Phone extends BaseEntity {
@@ -18,7 +18,7 @@ export default class Phone extends BaseEntity {
   phone: string
 
   @Column()
-  user_id: string
+  clientId: string
 
   @CreateDateColumn()
   created_at: DateTime
@@ -26,6 +26,6 @@ export default class Phone extends BaseEntity {
   @CreateDateColumn()
   updated_at: DateTime
 
-  @ManyToOne(() => Clients)
-  user: Clients
+  @ManyToOne(() => Client)
+  client: Client
 }

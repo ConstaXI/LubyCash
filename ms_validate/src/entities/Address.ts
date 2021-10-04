@@ -7,10 +7,16 @@ export default class Address extends BaseEntity {
   id: string
 
   @Column()
-  phone: string
+  zip_code: string
 
   @Column()
-  user_id: string
+  city: string
+
+  @Column()
+  state: string
+
+  @Column()
+  clientId: string
 
   @CreateDateColumn()
   created_at: DateTime

@@ -41,12 +41,12 @@ export default class Client extends BaseEntity {
   @CreateDateColumn()
   updated_at: DateTime
 
-  @OneToOne(() => Address)
+  @OneToOne(() => Address, { eager: true })
   address: Address
 
-  @OneToMany(() => Phone, (phone) => phone.user)
+  @OneToMany(() => Phone, (phone) => phone.client, { eager: true })
   phones: Phone[]
 
-  @OneToOne(() => Solicitation)
+  @OneToOne(() => Solicitation, { eager: true })
   solicitation: Solicitation
 }

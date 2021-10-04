@@ -10,10 +10,12 @@ export class phones1633105130670 implements MigrationInterface {
             name: 'id',
             type: 'uuid',
             isPrimary: true,
+            generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'phone',
-            type: 'varchar(12)',
+            type: 'varchar(14)',
           },
           {
             name: 'created_at',
@@ -26,7 +28,7 @@ export class phones1633105130670 implements MigrationInterface {
             default: 'now()',
           },
           {
-            name: 'client_id',
+            name: 'clientId',
             type: 'uuid',
           },
         ],
@@ -35,7 +37,7 @@ export class phones1633105130670 implements MigrationInterface {
             name: 'ClientPhones',
             referencedTableName: 'ms_clients',
             referencedColumnNames: ['id'],
-            columnNames: ['client_id'],
+            columnNames: ['clientId'],
             onUpdate: 'SET NULL',
             onDelete: 'CASCADE',
           },
