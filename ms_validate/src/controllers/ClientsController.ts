@@ -1,12 +1,15 @@
 import { Request, Response } from 'express'
 import CreateClientService from '../services/clients/CreateClientService'
 import { container } from 'tsyringe'
+import ProducerService from '../services/ProducerService'
 
 class ClientsController {
   public async create(request: Request, response: Response) {
     const createClientService = container.resolve(CreateClientService)
 
     const client = await createClientService.execute(request.body)
+
+    await ProducerService.execute('handle-response', [{ value: JSON.stringify(client) }])
 
     return response.status(201).json(client)
   }

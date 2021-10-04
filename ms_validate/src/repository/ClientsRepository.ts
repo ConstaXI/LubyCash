@@ -1,4 +1,5 @@
 import { getRepository, Repository } from 'typeorm'
+import argon2 from 'argon2'
 import Client from '../entities/Client'
 import Solicitation from '../entities/Solicitation'
 import Phone from '../entities/Phone'
@@ -24,6 +25,8 @@ export default class ClientsRepository {
     solicitation,
   }: ICreateClientDTO): Promise<Client> {
     const client = this.clientsRepository.create(client_body)
+
+    client.password = await argon2.hash(client.password)
 
     await client.save()
 

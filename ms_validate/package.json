@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/ConstaXI/LubyCash#readme",
   "dependencies": {
+    "argon2": "^0.28.2",
     "express": "^4.17.1",
     "handlebars": "^4.7.7",
     "kafkajs": "^1.15.0",

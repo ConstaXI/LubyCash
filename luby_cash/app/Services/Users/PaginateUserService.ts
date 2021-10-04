@@ -1,8 +1,8 @@
-import User from 'App/Models/User'
+import GetMsConnection from 'App/Services/Database/GetMsConnection'
 
 class PaginateUserService {
   public async execute(page: number, perPage: number) {
-    return User.query().paginate(page, perPage)
+    return GetMsConnection.execute().query().from('ms_clients').paginate(page, perPage)
   }
 }
 
