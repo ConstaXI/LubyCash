@@ -6,15 +6,22 @@ import {
   CreateDateColumn,
   OneToOne,
   OneToMany,
+  JoinColumn
 } from 'typeorm'
 import { DateTime } from 'luxon'
 import Phone from './Phone'
 import Address from './Address'
 import Solicitation from './Solicitation'
-import { IsEmail, Length } from 'class-validator'
+import { Length } from "class-validator";
+import { v4 } from 'uuid'
 
 @Entity('ms_clients')
 export default class Client extends BaseEntity {
+  constructor() {
+    super();
+    this.id = v4()
+  }
+
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -23,13 +30,6 @@ export default class Client extends BaseEntity {
 
   @Column()
   surname: string
-
-  @Column({ unique: true })
-  @IsEmail()
-  email: string
-
-  @Column()
-  password: string
 
   @Column({ unique: true })
   @Length(12, 12)
@@ -41,12 +41,13 @@ export default class Client extends BaseEntity {
   @CreateDateColumn()
   updated_at: DateTime
 
-  @OneToOne(() => Address, { eager: true })
+  @OneToOne(() => Address, { cascade: true })
   address: Address
 
-  @OneToMany(() => Phone, (phone) => phone.client, { eager: true })
+  @OneToMany(() => Phone, (phone) => phone.client, { cascade: true })
   phones: Phone[]
 
-  @OneToOne(() => Solicitation, { eager: true })
+  @OneToOne(() => Solicitation, { cascade: true })
+  @JoinColumn()
   solicitation: Solicitation
 }

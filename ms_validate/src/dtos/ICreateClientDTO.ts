@@ -1,12 +1,7 @@
 interface ICreateClientDTO {
-  client_body: {
-    name: string
-    surname: string
-    cpf: string
-    email: string
-    password: string
-    password_confirmation: string
-  }
+  name: string
+  surname: string
+  cpf: string
   address: {
     zip_code: string
     city: string

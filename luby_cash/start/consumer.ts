@@ -10,4 +10,4 @@
 
 import ConsumerService from 'App/Services/Kafka/ConsumerService'
 
-ConsumerService.execute('handle-response', true).catch((error) => console.log(error))
+ConsumerService.execute('handle-response', true).then(() => console.log('Consumer ready'))

@@ -1,5 +1,4 @@
 import { Kafka } from 'kafkajs'
-import ValidateUserService from './ValidateUserService'
 
 class ConsumerService {
   private consumer
@@ -19,9 +18,6 @@ class ConsumerService {
     await this.consumer.run({
       eachMessage: async ({ message }) => {
         console.dir(JSON.parse(String(message.value)))
-        await ValidateUserService.execute(JSON.parse(String(message.value))).catch((error) =>
-          console.log(error)
-        )
       },
     })
   }

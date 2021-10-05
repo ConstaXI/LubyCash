@@ -7,7 +7,7 @@ export default class Accounts extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid('id').primary()
       table.float('current_balance').notNullable()
-      table.uuid('user_id').references('id').inTable('users').onDelete('CASCADE').notNullable()
+      table.uuid('user_id').references('id').inTable('users').onDelete('cascade').notNullable()
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

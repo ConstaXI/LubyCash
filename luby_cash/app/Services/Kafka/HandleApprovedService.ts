@@ -1,20 +1,15 @@
 import User from 'App/Models/User'
 
 interface Response {
-  user_id: string
+  email: string
+  password: string
   status: string
 }
 
 class HandleApprovedService {
-  public async execute({ user_id, status }: Response) {
-    const user = await User.findOrFail(user_id)
-
-    await user.load('solicitation')
-
-    user.solicitation.status = status
-    await user.solicitation.save()
-
+  public async execute({ status, email, password }: Response) {
     if (status === 'approved') {
+      const user = await User.create({ email: email, password: password })
       await user.related('account').create({ current_balance: 200 })
     }
   }

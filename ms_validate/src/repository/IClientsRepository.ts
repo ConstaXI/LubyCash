@@ -1,6 +1,9 @@
 import Client from '../entities/Client'
+import Solicitation from "../entities/Solicitation";
 
 export default interface IClientsRepository {
-  create: ({ client_body, address, phones, solicitation }: ICreateClientDTO) => Promise<Client>
-  index: () => Promise<Client[] | null>
+  create: (data: ICreateClientDTO) => Promise<Client>
+  index: () => Promise<Client[] | undefined>
+  save: (client: Client) => Promise<Client>
+  findSolicitation: (cpf: string) => Promise<Solicitation | undefined>
 }

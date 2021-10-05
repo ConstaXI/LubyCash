@@ -27,15 +27,6 @@ export class clients1633104143409 implements MigrationInterface {
             isUnique: true,
           },
           {
-            name: 'password',
-            type: 'varchar',
-          },
-          {
-            name: 'email',
-            type: 'varchar',
-            isUnique: true,
-          },
-          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

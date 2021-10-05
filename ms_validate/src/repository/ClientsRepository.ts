@@ -1,5 +1,4 @@
 import { getRepository, Repository } from 'typeorm'
-import argon2 from 'argon2'
 import Client from '../entities/Client'
 import Solicitation from '../entities/Solicitation'
 import Phone from '../entities/Phone'
@@ -18,37 +17,37 @@ export default class ClientsRepository {
     this.addressesRepository = getRepository(Address)
   }
 
-  public async create({
-    client_body,
-    address,
-    phones,
-    solicitation,
-  }: ICreateClientDTO): Promise<Client> {
-    const client = this.clientsRepository.create(client_body)
+  public async create(data: ICreateClientDTO): Promise<Client> {
+    const client = this.clientsRepository.create(data)
 
-    client.password = await argon2.hash(client.password)
+    client.solicitation = this.solicitationsRepository.create({ ...data.solicitation, clientId: client.id })
 
-    await client.save()
-
-    client.solicitation = this.solicitationsRepository.create({
-      ...solicitation,
-      clientId: client.id,
-    })
-
-    await client.solicitation.save()
-
-    client.phones = this.phonesRepository.create(phones)
+    client.phones = this.phonesRepository.create(data.phones)
 
     for (const phone of client.phones) {
       phone.clientId = client.id
     }
 
-    await this.phonesRepository.save(client.phones)
+    client.address = this.addressesRepository.create({ ...data.address, clientId: client.id })
 
-    client.address = this.addressesRepository.create({ ...address, clientId: client.id })
-
-    await client.address.save()
+    await this.clientsRepository.save(client)
 
     return client
+  }
+
+  public async index(): Promise<Client[] | undefined> {
+    return this.clientsRepository.find({ relations: ['solicitation'] })
+  }
+
+  public async save(client: Client): Promise<Client> {
+    return this.clientsRepository.save(client)
+  }
+
+  public async findSolicitation(cpf: string): Promise<Solicitation | undefined> {
+    const client = await this.clientsRepository.findOne({ where: { cpf: cpf } })
+
+    if (!client) return undefined
+
+    return this.solicitationsRepository.findOne({ where: { clientId: client.id } })
   }
 }
