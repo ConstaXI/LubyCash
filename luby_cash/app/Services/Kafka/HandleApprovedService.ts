@@ -11,6 +11,7 @@ class HandleApprovedService {
     if (status === 'approved') {
       const user = await User.create({ email: email, password: password })
       await user.related('account').create({ current_balance: 200 })
+      await user.related('role').create({ user_type: 'client' })
     }
   }
 }

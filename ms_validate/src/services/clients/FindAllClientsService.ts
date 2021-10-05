@@ -1,6 +1,6 @@
-import { inject, injectable } from "tsyringe";
-import IClientsRepository from "../../repository/IClientsRepository";
-import Client from "../../entities/Client";
+import { inject, injectable } from 'tsyringe'
+import IClientsRepository from '../../repository/IClientsRepository'
+import Client from '../../entities/Client'
 
 @injectable()
 export default class FindAllClientsService {

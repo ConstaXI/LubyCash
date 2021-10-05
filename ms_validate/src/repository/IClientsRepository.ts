@@ -1,5 +1,5 @@
 import Client from '../entities/Client'
-import Solicitation from "../entities/Solicitation";
+import Solicitation from '../entities/Solicitation'
 
 export default interface IClientsRepository {
   create: (data: ICreateClientDTO) => Promise<Client>

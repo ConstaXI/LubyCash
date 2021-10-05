@@ -6,19 +6,18 @@ import {
   CreateDateColumn,
   OneToOne,
   OneToMany,
-  JoinColumn
 } from 'typeorm'
 import { DateTime } from 'luxon'
 import Phone from './Phone'
 import Address from './Address'
 import Solicitation from './Solicitation'
-import { Length } from "class-validator";
+import { Length } from 'class-validator'
 import { v4 } from 'uuid'
 
 @Entity('ms_clients')
 export default class Client extends BaseEntity {
   constructor() {
-    super();
+    super()
     this.id = v4()
   }
 
@@ -47,7 +46,6 @@ export default class Client extends BaseEntity {
   @OneToMany(() => Phone, (phone) => phone.client, { cascade: true })
   phones: Phone[]
 
-  @OneToOne(() => Solicitation, { cascade: true })
-  @JoinColumn()
+  @OneToOne(() => Solicitation, (solicitation) => solicitation.client, { cascade: true })
   solicitation: Solicitation
 }

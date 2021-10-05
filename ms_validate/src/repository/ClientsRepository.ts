@@ -20,7 +20,10 @@ export default class ClientsRepository {
   public async create(data: ICreateClientDTO): Promise<Client> {
     const client = this.clientsRepository.create(data)
 
-    client.solicitation = this.solicitationsRepository.create({ ...data.solicitation, clientId: client.id })
+    client.solicitation = this.solicitationsRepository.create({
+      ...data.solicitation,
+      clientId: client.id,
+    })
 
     client.phones = this.phonesRepository.create(data.phones)
 

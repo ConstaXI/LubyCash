@@ -24,30 +24,9 @@ export default class CreateUserValidator {
    *    ```
    */
   public schema = schema.create({
-    user_body: schema.object().members({
-      name: schema.string({}, [rules.alpha()]),
-      surname: schema.string({}, [rules.alpha()]),
-      cpf: schema.string({}, [rules.maxLength(12)]),
-      email: schema.string({}, [rules.email()]),
-      password: schema.string({}, [rules.confirmed()]),
-    }),
-    address: schema.object().members({
-      zip_code: schema.string({}, [rules.maxLength(8)]),
-      city: schema.string(),
-      state: schema.string(),
-    }),
-    phones: schema.array().members(
-      schema.object().members({
-        phone: schema.string({}, [rules.maxLength(14)]),
-      })
-    ),
-    role: schema.object().members({
-      user_type: schema.enum(['administrator', 'client']),
-    }),
-    solicitation: schema.object().members({
-      average_income: schema.number(),
-      account_type: schema.enum(['savings account', 'checking account']),
-    }),
+    email: schema.string({}, [rules.email()]),
+    password: schema.string({}, [rules.confirmed()]),
+    role: schema.enum(['administrator', 'client']),
   })
 
   /**

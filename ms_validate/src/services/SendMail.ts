@@ -4,7 +4,7 @@ import { promisify } from 'util'
 import fs from 'fs'
 import handlebars from 'handlebars'
 
-class sendMail {
+export default class SendMail {
   private mailer: Transporter
 
   constructor() {
@@ -53,5 +53,3 @@ class sendMail {
     )
   }
 }
-
-export default new sendMail()

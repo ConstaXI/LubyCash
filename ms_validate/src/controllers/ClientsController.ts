@@ -2,8 +2,9 @@ import { Request, Response } from 'express'
 import CreateClientService from '../services/clients/CreateClientService'
 import { container } from 'tsyringe'
 import ProducerService from '../services/ProducerService'
-import FindAllClientsService from "../services/clients/FindAllClientsService";
-import VerifyCPFService from "../services/clients/VerifyCPFService";
+import FindAllClientsService from '../services/clients/FindAllClientsService'
+import VerifyCPFService from '../services/clients/VerifyCPFService'
+import SendMail from "../services/SendMail";
 
 class ClientsController {
   public async create(request: Request, response: Response) {
@@ -16,17 +17,18 @@ class ClientsController {
 
       const client = await createClientService.execute(request.body.client_body)
 
-      await ProducerService.execute(
-        'handle-response',
-        [
-          {
-            value: JSON.stringify({
-              status: client.solicitation.status,
-              ...request.body.user_body
-            })
-          }
-        ]
-      )
+      await ProducerService.execute('handle-response', [
+        {
+          value: JSON.stringify({
+            status: client.solicitation.status,
+            ...request.body.user_body,
+          }),
+        },
+      ])
+
+      const sendMail = container.resolve(SendMail)
+
+      await sendMail.execute(request.body.client_body.cpf)
 
       return response.status(201).json(client)
     } catch (error: any) {

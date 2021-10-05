@@ -1,5 +1,14 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
+import {
+  Entity,
+  BaseEntity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm'
 import { DateTime } from 'luxon'
+import Client from './Client'
 
 @Entity('solicitations')
 export default class Solicitation extends BaseEntity {
@@ -14,6 +23,10 @@ export default class Solicitation extends BaseEntity {
 
   @Column()
   clientId: string
+
+  @OneToOne(() => Client, (client) => client.solicitation)
+  @JoinColumn()
+  client: Client
 
   @CreateDateColumn()
   created_at: DateTime
