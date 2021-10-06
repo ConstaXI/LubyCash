@@ -21,11 +21,11 @@ export default class UsersController {
 
   public async index({ request, response }: HttpContextContract) {
     const userId: string = request.param('user_id')
+    const month: string = request.param('month')
+    const year: string = request.param('year')
 
-    const user = await FindMonthTransactionsService.execute(userId)
+    const payload = await FindMonthTransactionsService.execute(userId, month, year)
 
-    return response
-      .status(200)
-      .send({ inbound: user.account.inbound, outbound: user.account.outbound })
+    return response.status(200).send(payload)
   }
 }

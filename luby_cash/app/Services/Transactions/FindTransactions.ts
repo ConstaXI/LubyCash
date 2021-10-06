@@ -14,7 +14,7 @@ class FindTransactions {
       transactionQuery.where('created_at', '>', date.toSQL())
     })
 
-    return user
+    return user.account
   }
 }
 
