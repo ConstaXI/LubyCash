@@ -29,9 +29,7 @@ Route.group(() => {
 })
 
 Route.group(() => {
-  Route.get('/solicitations', 'SolicitationsController.index')
-  Route.put('/solicitations/:id', 'SolicitationsController.update')
-  Route.delete('/solicitations/:id', 'SolicitationsController.delete')
+  Route.get('/clients/:status', 'ClientsController.index')
 }).middleware(['auth', 'admin'])
 
 Route.group(() => {

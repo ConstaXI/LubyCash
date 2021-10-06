@@ -38,8 +38,8 @@ export default class ClientsRepository {
     return client
   }
 
-  public async index(): Promise<Client[] | undefined> {
-    return this.clientsRepository.find({ relations: ['solicitation'] })
+  public async index(status?: string): Promise<Client[] | undefined> {
+    return status ? this.clientsRepository.find({ relations: ['solicitation'], where: { solicitation: { status: status } } }) : this.clientsRepository.find({ relations: ['solicitation'] })
   }
 
   public async save(client: Client): Promise<Client> {

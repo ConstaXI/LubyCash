@@ -1,8 +1,7 @@
 import { Kafka, Consumer } from 'kafkajs'
 import HandleApprovedService from 'App/Services/Kafka/HandleApprovedService'
-import ConsumerServiceInterface from 'Contracts/ConsumerServiceInterface'
 
-class ConsumerService implements ConsumerServiceInterface {
+class ConsumerService {
   private consumer: Consumer
 
   constructor() {
