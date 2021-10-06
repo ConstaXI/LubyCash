@@ -29,7 +29,7 @@ Route.group(() => {
 })
 
 Route.group(() => {
-  Route.get('/clients/:status', 'ClientsController.index')
+  Route.get('/clients/:status/:month/:year', 'ClientsController.index')
 }).middleware(['auth', 'admin'])
 
 Route.group(() => {
