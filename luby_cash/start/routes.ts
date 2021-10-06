@@ -29,10 +29,6 @@ Route.group(() => {
 })
 
 Route.group(() => {
-  Route.post('/admins', 'AdminsController.create')
-}).middleware(['auth', 'admin'])
-
-Route.group(() => {
   Route.get('/solicitations', 'SolicitationsController.index')
   Route.put('/solicitations/:id', 'SolicitationsController.update')
   Route.delete('/solicitations/:id', 'SolicitationsController.delete')

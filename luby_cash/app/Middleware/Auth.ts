@@ -1,7 +1,6 @@
 import { GuardsList } from '@ioc:Adonis/Addons/Auth'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { AuthenticationException } from '@adonisjs/auth/build/standalone'
-import { Exception } from '@poppinss/utils'
 
 /**
  * Auth middleware is meant to restrict un-authenticated access to a given route
@@ -72,14 +71,6 @@ export default class AuthMiddleware {
      */
     const guards = customGuards.length ? customGuards : [auth.name]
     await this.authenticate(auth, guards)
-
-    /**
-     * Verifies if user solicitation was approved
-     */
-    await auth.user!.load('solicitation')
-
-    if (auth.user!.solicitation.status !== 'approved')
-      throw new Exception('Você não foi aprovado', 403)
 
     /*
      * Loads account onto user

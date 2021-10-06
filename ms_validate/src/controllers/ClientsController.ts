@@ -21,6 +21,7 @@ class ClientsController {
         {
           value: JSON.stringify({
             status: client.solicitation.status,
+            cpf: request.body.client_body.cpf,
             ...request.body.user_body,
           }),
         },
@@ -28,7 +29,7 @@ class ClientsController {
 
       const sendMail = container.resolve(SendMail)
 
-      await sendMail.execute(request.body.client_body.cpf)
+      await sendMail.execute(request.body.user_body.email)
 
       return response.status(201).json(client)
     } catch (error: any) {
