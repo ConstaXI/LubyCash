@@ -1,7 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import CreateTransactionValidator from 'App/Validators/CreateTransactionValidator'
 import CreateTransactionService from 'App/Services/Transactions/CreateTransactionService'
-import FindMonthTransactionsService from 'App/Services/Transactions/FindMonthTransactionsService'
+import FindMonthTransactionsService from 'App/Services/Transactions/FindTransactions'
 import FindUserByCPFService from 'App/Services/Users/FindUserByCPFService'
 
 export default class UsersController {
