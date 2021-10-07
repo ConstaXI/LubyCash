@@ -34,7 +34,7 @@ class ClientsController {
 
       const sendMail = container.resolve(SendMail)
 
-      await sendMail.execute(request.body.user_body.email)
+      await sendMail.execute(request.body.user_body.email, client.solicitation.status)
 
       return response.status(201).json(client)
     } catch (error: any) {

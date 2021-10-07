@@ -24,8 +24,6 @@ export default class ForgotPasswordsController {
           .from('davi@adonisjs.com', 'Davi Banfi')
           .subject('Recuperação de senha')
           .htmlView('emails/forgot_password', {
-            name: user.name,
-            surname: user.surname,
             link: 'https://www.google.com.br',
           })
       })

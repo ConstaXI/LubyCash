@@ -27,7 +27,6 @@ export default class CreateUserValidator {
     email: schema.string({}, [rules.email()]),
     password: schema.string({}, [rules.confirmed()]),
     cpf: schema.string({}, [rules.minLength(11)]),
-    role: schema.enum(['administrator', 'client']),
   })
 
   /**

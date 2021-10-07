@@ -20,13 +20,12 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.post('/users', 'UsersController.create')
-
 Route.group(() => {
-  Route.get('/users', 'UsersController.index')
-  Route.delete('/users', 'UsersController.delete')
+  Route.post('/admins', 'UsersController.create').middleware('admin')
+  Route.get('/admins', 'UsersController.index').middleware('admin')
   Route.put('/users', 'UsersController.update')
-})
+  Route.delete('/users', 'UsersController.delete')
+}).middleware(['auth'])
 
 Route.group(() => {
   Route.get('/clients/:status/:month/:year', 'ClientsController.index')

@@ -10,7 +10,7 @@ export default class SendMail {
   constructor() {
     this.mailer = nodemailer.createTransport({
       host: 'smtp.mailtrap.io',
-      port: 587,
+      port: 2525,
       secure: false,
       auth: {
         user: '0f5936733b0f43',
@@ -19,7 +19,7 @@ export default class SendMail {
     })
   }
 
-  public async execute(email: string) {
+  public async execute(email: string, status: string) {
     const readFile = promisify(fs.readFile)
 
     this.mailer.use(
@@ -35,7 +35,7 @@ export default class SendMail {
 
     const html = await readFile('src/views/emails/evaluation_status.edge', 'utf8')
     const template = handlebars.compile(html)
-    const htmlToSend = template(template)
+    const htmlToSend = template({ status: status })
 
     this.mailer.sendMail(
       {
@@ -43,6 +43,11 @@ export default class SendMail {
         to: email,
         subject: 'Status da avaliação',
         html: htmlToSend,
+        attachments: [{
+          filename: 'image-1.png',
+          path: 'src/views/emails/images/image-1.png',
+          cid: 'theImageIWant'
+        }]
       },
       (error) => {
         if (error) {
