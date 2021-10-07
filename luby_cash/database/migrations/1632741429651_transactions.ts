@@ -8,7 +8,6 @@ export default class Transactions extends BaseSchema {
       table.uuid('id').primary()
       table.uuid('source_account_id').references('id').inTable('accounts').notNullable()
       table.uuid('destination_account_id').references('id').inTable('accounts').notNullable()
-      table.unique(['source_account_id', 'destination_account_id'])
       table.float('value').notNullable()
 
       /**

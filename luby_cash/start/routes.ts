@@ -38,5 +38,16 @@ Route.group(() => {
   )
 }).middleware(['auth'])
 
-Route.post('/login', 'SessionsController.login')
-Route.delete('/logout', 'SessionsController.logout')
+Route.group(() => {
+  Route.post('/login', 'SessionsController.login')
+  Route.delete('/logout', 'SessionsController.logout')
+})
+
+Route.group(() => {
+  Route.post('/forgot_passwords', 'ForgotPasswordsController.store')
+  Route.put('/forgot_passwords/:token', 'ForgotPasswordsController.update')
+})
+
+Route.group(() => {
+  Route.get('/accounts', 'AccountsController.index')
+}).middleware('auth')

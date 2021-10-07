@@ -24,6 +24,7 @@ export default class ForgotPasswordsController {
           .from('davi@adonisjs.com', 'Davi Banfi')
           .subject('Recuperação de senha')
           .htmlView('emails/forgot_password', {
+            token: user.rememberMeToken,
             link: 'https://www.google.com.br',
           })
       })
@@ -52,7 +53,7 @@ export default class ForgotPasswordsController {
         return response.badRequest('Token expirado')
       }
 
-      user.rememberMeToken = undefined
+      user.rememberMeToken = null
       user.password = password
 
       await auth.logout()

@@ -1,6 +1,7 @@
 import { GuardsList } from '@ioc:Adonis/Addons/Auth'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { AuthenticationException } from '@adonisjs/auth/build/standalone'
+import FindAccountService from 'App/Services/Accounts/FindAccountService'
 
 /**
  * Auth middleware is meant to restrict un-authenticated access to a given route
@@ -75,7 +76,7 @@ export default class AuthMiddleware {
     /*
      * Loads account onto user
      */
-    auth.user!.load('account')
+    await FindAccountService.execute(auth.user)
 
     await next()
   }
