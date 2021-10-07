@@ -31,7 +31,7 @@ export default class Client extends BaseEntity {
   surname: string
 
   @Column({ unique: true })
-  @Length(12, 12)
+  @Length(11, 12)
   cpf: string
 
   @CreateDateColumn()

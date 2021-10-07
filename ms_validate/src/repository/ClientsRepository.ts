@@ -33,8 +33,6 @@ export default class ClientsRepository {
 
     client.address = this.addressesRepository.create({ ...data.address, clientId: client.id })
 
-    await this.clientsRepository.save(client)
-
     return client
   }
 

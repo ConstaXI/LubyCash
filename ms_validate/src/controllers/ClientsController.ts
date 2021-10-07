@@ -5,6 +5,7 @@ import ProducerService from '../services/ProducerService'
 import FindAllClientsService from '../services/clients/FindAllClientsService'
 import VerifyCPFService from '../services/clients/VerifyCPFService'
 import SendMail from "../services/SendMail";
+import ValidateUser from "../services/users/ValidateUser";
 
 class ClientsController {
   public async create(request: Request, response: Response) {
@@ -16,6 +17,10 @@ class ClientsController {
       const createClientService = container.resolve(CreateClientService)
 
       const client = await createClientService.execute(request.body.client_body)
+
+      const validateUser = container.resolve(ValidateUser)
+
+      await validateUser.execute(request.body.user_body)
 
       await ProducerService.execute('handle-response', [
         {
@@ -33,7 +38,7 @@ class ClientsController {
 
       return response.status(201).json(client)
     } catch (error: any) {
-      return response.status(400).json(error.message)
+      return response.status(400).json(error)
     }
   }
 
