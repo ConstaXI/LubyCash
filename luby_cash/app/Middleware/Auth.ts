@@ -76,7 +76,9 @@ export default class AuthMiddleware {
     /*
      * Loads account onto user
      */
-    await FindAccountService.execute(auth.user)
+    await auth.user?.load('role')
+
+    if (auth.user?.role.user_type !== 'administrator') await FindAccountService.execute(auth.user)
 
     await next()
   }

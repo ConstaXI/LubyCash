@@ -14,7 +14,7 @@ export default class SessionsController {
       expires_at: DateTime.now().plus({ hours: 1 }),
     })
 
-    await FindAccountService.execute(user)
+    if (user.role.user_type !== 'administrator') await FindAccountService.execute(user)
 
     return response.status(200).send({ user, token })
   }
