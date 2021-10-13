@@ -4,7 +4,6 @@ import { container } from 'tsyringe'
 import ProducerService from '../services/ProducerService'
 import FindAllClientsService from '../services/clients/FindAllClientsService'
 import VerifyCPFService from '../services/clients/VerifyCPFService'
-import SendMail from "../services/SendMail";
 import ValidateUser from "../services/users/ValidateUser";
 
 class ClientsController {
@@ -32,9 +31,11 @@ class ClientsController {
         },
       ])
 
-      const sendMail = container.resolve(SendMail)
-
-      await sendMail.execute(request.body.user_body.email, client.solicitation.status)
+      await ProducerService.execute('send-mail', [{ value: JSON.stringify({
+          email: request.body.user_body.email,
+          status: client.solicitation.status
+        })
+      }])
 
       return response.status(201).json(client)
     } catch (error: any) {

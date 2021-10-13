@@ -4,7 +4,12 @@ import { promisify } from 'util'
 import fs from 'fs'
 import handlebars from 'handlebars'
 
-export default class SendMail {
+interface Mail {
+  email: string
+  status: string
+}
+
+class SendMail {
   private mailer: Transporter
 
   constructor() {
@@ -19,7 +24,7 @@ export default class SendMail {
     })
   }
 
-  public async execute(email: string, status: string) {
+  public async execute({ email, status }: Mail) {
     const readFile = promisify(fs.readFile)
 
     this.mailer.use(
@@ -58,3 +63,5 @@ export default class SendMail {
     )
   }
 }
+
+export default new SendMail()
